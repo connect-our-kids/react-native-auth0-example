@@ -1,6 +1,8 @@
 import Constants from 'expo-constants';
 import qs from 'qs';
-import { Linking, WebBrowser } from 'expo';
+import { Linking } from 'expo';
+import * as ExpoWebBrowser from 'expo-web-browser';
+
 const BASE_URL = `https://auth.expo.io`;
 let _authLock = false;
 async function startAsync(options) {
@@ -8,7 +10,7 @@ async function startAsync(options) {
     const authUrl = options.authUrl;
     //const startUrl = getStartUrl(authUrl, returnUrl);
     startUrl = authUrl;
-    
+
     console.log(startUrl);
 
     // Prevent accidentally starting to an empty url
@@ -54,11 +56,11 @@ async function startAsync(options) {
     };
 }
 function dismiss() {
-    WebBrowser.dismissAuthSession();
+    ExpoWebBrowser.dismissAuthSession();
 }
 async function _openWebBrowserAsync(startUrl, returnUrl) {
     // $FlowIssue: Flow thinks the awaited result can be a promise
-    let result = await WebBrowser.openAuthSessionAsync(startUrl, returnUrl);
+    let result = await ExpoWebBrowser.openAuthSessionAsync(startUrl, returnUrl);
     if (result.type === 'cancel' || result.type === 'dismiss') {
         return { type: result.type };
     }
