@@ -1,6 +1,7 @@
 import Constants from 'expo-constants';
 import qs from 'qs';
-import { Linking, WebBrowser } from 'expo';
+import { Linking } from 'expo';
+import * as WebBrowser from 'expo-web-browser'; // required with update to Expo SDK 35.0.0
 const BASE_URL = `https://auth.expo.io`;
 let _authLock = false;
 async function startAsync(options) {
